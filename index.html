@@ -3468,54 +3468,78 @@
 
             var btn = document.getElementById('deployBtn');
             btn.disabled = true;
-            setDeployStatus('loading', 'Connecting to GitHub…');
+
+            var apiBase = 'https://api.github.com';
+            var repoBase = apiBase + '/repos/' + cfg.owner + '/' + cfg.repo;
+            var headers = {
+                'Authorization': 'token ' + cfg.token,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            };
+
+            async function ghFetch(url, opts) {
+                var res = await fetch(url, Object.assign({ headers: headers }, opts));
+                var data = await res.json();
+                if (!res.ok) throw new Error(data.message || ('GitHub API error ' + res.status));
+                return data;
+            }
 
             try {
-                var apiBase = 'https://api.github.com';
-                var headers = {
-                    'Authorization': 'token ' + cfg.token,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Content-Type': 'application/json'
-                };
+                // Step 1 — get latest commit SHA on branch
+                setDeployStatus('loading', 'Connecting to GitHub…');
+                var refData = await ghFetch(repoBase + '/git/refs/heads/' + cfg.branch);
+                var latestCommitSha = refData.object.sha;
 
-                // 1. Get current file SHA (required by GitHub API for updates)
-                setDeployStatus('loading', 'Fetching current file…');
-                var getRes = await fetch(
-                    apiBase + '/repos/' + cfg.owner + '/' + cfg.repo +
-                    '/contents/index.html?ref=' + cfg.branch,
-                    { headers: headers }
-                );
-                if (!getRes.ok) {
-                    var e1 = await getRes.json();
-                    throw new Error(e1.message || 'Cannot access repo — check username/repo name and token permissions.');
-                }
-                var fileData = await getRes.json();
+                // Step 2 — get the commit's tree SHA
+                setDeployStatus('loading', 'Reading current tree…');
+                var commitData = await ghFetch(repoBase + '/git/commits/' + latestCommitSha);
+                var baseTreeSha = commitData.tree.sha;
 
-                // 2. Base-64 encode the new HTML
-                setDeployStatus('loading', 'Uploading changes…');
-                var encoded = btoa(unescape(encodeURIComponent(buildCleanHTML())));
+                // Step 3 — create a new blob with the updated HTML
+                setDeployStatus('loading', 'Uploading new content…');
+                var html = buildCleanHTML();
+                var blobData = await ghFetch(repoBase + '/git/blobs', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        content: btoa(unescape(encodeURIComponent(html))),
+                        encoding: 'base64'
+                    })
+                });
 
-                // 3. Commit updated file
-                var putRes = await fetch(
-                    apiBase + '/repos/' + cfg.owner + '/' + cfg.repo + '/contents/index.html',
-                    {
-                        method: 'PUT',
-                        headers: headers,
-                        body: JSON.stringify({
-                            message: '✏️ Site update via Edit Mode — ' + new Date().toLocaleString('en-GB'),
-                            content: encoded,
-                            sha: fileData.sha,
-                            branch: cfg.branch
-                        })
-                    }
-                );
-                if (!putRes.ok) {
-                    var e2 = await putRes.json();
-                    throw new Error(e2.message || 'GitHub rejected the update.');
-                }
+                // Step 4 — create a new tree pointing index.html at the new blob
+                setDeployStatus('loading', 'Creating commit…');
+                var newTreeData = await ghFetch(repoBase + '/git/trees', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        base_tree: baseTreeSha,
+                        tree: [{
+                            path: 'index.html',
+                            mode: '100644',
+                            type: 'blob',
+                            sha: blobData.sha
+                        }]
+                    })
+                });
+
+                // Step 5 — create a new commit
+                var newCommitData = await ghFetch(repoBase + '/git/commits', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        message: '✏️ Site update via Edit Mode — ' + new Date().toLocaleString('en-GB'),
+                        tree: newTreeData.sha,
+                        parents: [latestCommitSha]
+                    })
+                });
+
+                // Step 6 — advance the branch ref to the new commit
+                setDeployStatus('loading', 'Pushing to GitHub…');
+                await ghFetch(repoBase + '/git/refs/heads/' + cfg.branch, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ sha: newCommitData.sha })
+                });
 
                 setDeployStatus('success',
-                    '✅ Pushed! Vercel is deploying now (~1–2 min)&nbsp;&nbsp;' +
+                    '✅ Pushed! Vercel is deploying (~1–2 min)&nbsp;&nbsp;' +
                     '<a href="https://pawesomekelso.vercel.app" target="_blank" ' +
                     'style="color:#2ecc71;font-weight:700;text-decoration:underline;">View live site →</a>'
                 );
