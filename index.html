@@ -2211,23 +2211,6 @@
             box-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
         }
 
-        /* ===== MOUSE PAW TRAIL ===== */
-        .paw-trail {
-            position: fixed;
-            pointer-events: none;
-            font-size: 20px;
-            z-index: 9997;
-            animation: trailFade 1.1s ease forwards;
-            user-select: none;
-            will-change: transform, opacity;
-        }
-
-        @keyframes trailFade {
-            0%   { opacity: 0.85; transform: scale(1.3) rotate(var(--rot, 0deg)); }
-            40%  { opacity: 0.5;  transform: scale(0.9) rotate(calc(var(--rot, 0deg) + 25deg)) translateY(-12px); }
-            100% { opacity: 0;    transform: scale(0.1) rotate(calc(var(--rot, 0deg) + 50deg)) translateY(-35px); }
-        }
-
         /* ===== HERO FLOATING BUBBLES ===== */
         .hero-bubble {
             position: absolute;
@@ -3446,6 +3429,10 @@
                 var el = clone.querySelector(sel);
                 if (el) el.parentNode.removeChild(el);
             });
+            // Strip any floating paw-trail spans left on screen at save time
+            clone.querySelectorAll('.paw-trail').forEach(function(el) {
+                el.parentNode.removeChild(el);
+            });
             return '<!DOCTYPE html>\n' + clone.outerHTML;
         }
 
@@ -3719,23 +3706,6 @@
             }, { passive: true });
         })();
 
-        // ===== MOUSE PAW TRAIL =====
-        (function() {
-            let lastTime = 0;
-            document.addEventListener('mousemove', function(e) {
-                const now = Date.now();
-                if (now - lastTime < 110) return;
-                lastTime = now;
-                const paw = document.createElement('span');
-                paw.className = 'paw-trail';
-                paw.textContent = '🐾';
-                const rot = (Math.random() * 70 - 35).toFixed(1);
-                paw.style.cssText = 'left:' + (e.clientX - 10) + 'px;top:' + (e.clientY - 10) + 'px;--rot:' + rot + 'deg;';
-                document.body.appendChild(paw);
-                setTimeout(function() { paw.remove(); }, 1150);
-            });
-        })();
-
         // ===== 3D CARD TILT =====
         document.querySelectorAll('.service-item').forEach(function(card) {
             card.addEventListener('mousemove', function(e) {
@@ -3803,5 +3773,5 @@
             });
         })();
     </script>
-
-<span class="paw-trail" style="left: 488px; top: 672px; --rot: 4.1deg;">🐾</span><span class="paw-trail" style="left: 477px; top: 688px; --rot: -14.0deg;">🐾</span><span class="paw-trail" style="left: 478px; top: 691px; --rot: -5.8deg;">🐾</span><span class="paw-trail" style="left: 480px; top: 690px; --rot: 7.8deg;">🐾</span><span class="paw-trail" style="left: 468px; top: 550px; --rot: 12.0deg;">🐾</span><span class="paw-trail" style="left: 472px; top: 470px; --rot: 20.3deg;">🐾</span></body></html>
+</body>
+</html>
