@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name | UX & Web Designer Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fafafa;
+      color: #222;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      color: #1e88e5;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #1565c0;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: #1e88e5;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    header h1 {
+      font-weight: 600;
+      font-size: 2.8rem;
+      margin-bottom: 0.2rem;
+      letter-spacing: 1.5px;
+    }
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #1e88e5 0%, #42a5f5 100%);
+      color: white;
+      padding: 6rem 1rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.2;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.3rem;
+      font-weight: 300;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    /* Artistic Background Accent */
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.25), transparent);
+      border-radius: 50%;
+      top: -80px;
+      right: -100px;
+      filter: blur(80px);
+      z-index: 0;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      flex-grow: 1;
+    }
+
+    /* Section Titles */
+    section h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #1e88e5;
+      border-left: 6px solid #1e88e5;
+      padding-left: 0.5rem;
+    }
+
+    /* Portfolio Grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(30,136,229,0.1);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 32px rgba(30,136,229,0.2);
+    }
+    .project-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 3px solid #1e88e5;
+    }
+    .project-content {
+      padding: 1rem 1.2rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .project-title {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+      color: #1565c0;
+    }
+    .project-desc {
+      font-weight: 300;
+      font-size: 1rem;
+      flex-grow: 1;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    .project-tech {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1e88e5;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Process Section */
+    .process {
+      background: #e3f2fd;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .process h3 {
+      color: #0d47a1;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+    .process-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .process-list li {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      flex: 1 1 150px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      font-weight: 500;
+      color: #1565c0;
+      transition: background 0.3s ease;
+    }
+    .process-list li:hover {
+      background: #bbdefb;
+      cursor: default;
+    }
+
+    /* Contact Section */
+    #contact p {
+      font-size: 1.1rem;
+      margin-bottom: 0.7rem;
+    }
+    #contact a {
+      font-weight: 600;
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #1e88e5;
+      color: white;
+      text-align: center;
+      padding: 1rem 1rem;
+      font-size: 0.9rem;
+      margin-top: auto;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .process-list {
+        flex-direction: column;
+      }
+      .process-list li {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Your Name</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" aria-label="Introduction">
+    <h2>Crafting Intuitive & Beautiful Digital Experiences</h2>
+    <p>UX & Web Designer passionate about creating user-centered, elegant, and sustainable solutions that delight and engage.</p>
+  </section>
+
+  <main>
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Me</h2>
+      <p>With over [X years] of experience in UX and web design, I blend creativity with research to build intuitive interfaces and engaging websites. My approach centers on empathy, accessibility, and sustainable design practices.</p>
+    </section>
+
+    <section id="portfolio" aria-labelledby="portfolio-heading">
+      <h2 id="portfolio-heading">Portfolio</h2>
+      <div class="portfolio-grid">
+
+        <article class="project-card" tabindex="0" aria-label="Project: Sustainable E-commerce Website">
+          <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=600&q=80" alt="Screenshot of Sustainable E-commerce Website" class="project-image" />
+          <div class="project-content">
+            <h3 class="project-title">Sustainable E-commerce Website</h3>
+            <p class="project-desc">Designed a clean, eco-conscious online store focusing on seamless user flow and fast performance to reduce carbon footprint.</p>
+            <span class="project-tech">Figma, React, Tailwind CSS</span>
+          </div>
+        </article>
+
+        <article class="project-card" tabindex="0" aria-label="Project: Mobile App UX Redesign">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" alt="Screenshot of Mobile App UX Redesign" class="project-image" />
+          <div class="project-content">
+            <h3 class="project-title">Mobile App UX Redesign</h3>
+            <p class="project-desc">Revamped the onboarding and navigation experience for a health app, improving user retention by 30%.</p>
+            <span class="project-tech">Sketch, Adobe XD, User Testing</span>
+          </div>
+        </article>
+
+        <article class="project-card" tabindex="0" aria-label="Project: Interactive Portfolio Website">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Screenshot of Interactive Portfolio Website" class="project-image" />
+          <div class="project-content">
+            <h3 class="project-title">Interactive Portfolio Website</h3>
+            <p class="project-desc">Built a visually engaging portfolio with smooth animations and accessibility-first design principles.</p>
+            <span class="project-tech">HTML, CSS, JavaScript, A11y</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="process" aria-labelledby="process-heading" class="process">
+      <h2 id="process-heading">My Design Process</h2>
+      <ul class="process-list" role="list">
+        <li>Research & Empathy</li>
+        <li>Wireframing & Prototyping</li>
+        <li>User Testing & Feedback</li>
+        <li>UI Design & Visuals</li>
+        <li>Development Collaboration</li>
+        <li>Launch & Iteration</li>
+      </ul>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Get In Touch</h2>
+      <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">linkedin.com/in/yourprofile</a></p>
+      <p>Dribbble: <a href="https://dribbble.com/yourprofile" target="_blank" rel="noopener noreferrer">dribbble.com/yourprofile</a></p>
+      <p>Behance: <a href="https://behance.net/yourprofile" target="_blank" rel="noopener noreferrer">behance.net/yourprofile</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Your Name. Designed with passion and care.</p>
+  </footer>
+
+</body>
+</html>

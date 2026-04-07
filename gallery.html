@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Pawesome Adventure Walks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fef6f0;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fef6f0;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: slideDown 0.6s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        header:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 75px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b35;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #ff6b35;
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        /* Services Dropdown */
+        .nav-item-dropdown {
+            position: relative;
+        }
+        
+        .nav-item-dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            min-width: 240px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-8px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+            padding: 8px 0;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0) scale(1);
+            pointer-events: all;
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu::before {
+            transform: scaleX(1);
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 24px;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 14px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu a:nth-child(1) {
+            transition-delay: 0.05s;
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu a:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu a:nth-child(3) {
+            transition-delay: 0.15s;
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu a:nth-child(4) {
+            transition-delay: 0.2s;
+        }
+        
+        .nav-item-dropdown:hover .dropdown-menu a:nth-child(5) {
+            transition-delay: 0.25s;
+        }
+        
+        .dropdown-menu a::after {
+            display: none;
+        }
+        
+        .dropdown-menu a::before {
+            content: '🐾';
+            margin-right: 10px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+        
+        .dropdown-menu a:hover {
+            background: linear-gradient(90deg, #fef6f0 0%, rgba(255, 107, 53, 0.05) 100%);
+            color: #ff6b35;
+            padding-left: 28px;
+            transform: translateX(4px);
+        }
+        
+        .dropdown-menu a:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Hero Section */
+        .gallery-hero {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .gallery-hero h1 {
+            font-size: clamp(32px, 5vw, 42px);
+            margin-bottom: 20px;
+        }
+
+        .gallery-hero p {
+            font-size: clamp(16px, 2vw, 18px);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 36px);
+            color: #333;
+            margin: 60px 0 40px;
+            position: relative;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+            font-weight: normal;
+        }
+
+        /* Photo Gallery Section */
+        .photo-gallery {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            background: white;
+            aspect-ratio: 4/3;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        /* Certification Section */
+        .certification-section {
+            background: white;
+            padding: 60px 20px;
+            margin: 60px 0;
+        }
+
+        .cert-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .cert-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: #fef6f0;
+            transition: transform 0.3s;
+        }
+
+        .cert-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .cert-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .cert-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cert-title {
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 5px;
+        }
+
+        .cert-description {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* TikTok Videos Section */
+        .tiktok-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .tiktok-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tiktok-handle {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.3s;
+        }
+
+        .tiktok-handle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .tiktok-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tiktok-wrapper {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .tiktok-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .tiktok-embed {
+            max-width: 100% !important;
+        }
+
+        /* Scroll indicators for mobile */
+        .scroll-indicator {
+            display: none;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 15px;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .scroll-indicator::before,
+        .scroll-indicator::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 1px;
+            background: #ccc;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: #ff6b35;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 107, 53, 0.8);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-caption {
+            text-align: center;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: clamp(16px, 2vw, 18px);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn-white {
+            background: white;
+            color: #ff6b35;
+            padding: 12px 35px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .cta-btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: #2c2c2c;
+            color: white;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            padding: 4px 0;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 13px;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 11px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 20px 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+                background: transparent;
+                padding: 0;
+                margin: 10px 0 0 20px;
+                display: none;
+            }
+            
+            .nav-item-dropdown:hover .dropdown-menu,
+            .nav-item-dropdown.active .dropdown-menu {
+                display: block;
+            }
+            
+            .dropdown-menu a {
+                padding: 8px 0;
+            }
+            
+            .dropdown-menu a:hover {
+                padding-left: 10px;
+            }
+            
+            /* Horizontal scrolling for photo gallery on mobile */
+            .photo-gallery {
+                padding: 0;
+                margin: 0 0 60px 0;
+                overflow: hidden;
+            }
+            
+            .photo-grid {
+                display: flex;
+                gap: 15px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 20px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            .photo-grid::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .photo-item {
+                flex: 0 0 75%;
+                max-width: 300px;
+                scroll-snap-align: center;
+            }
+            
+            /* Horizontal scrolling for TikTok videos on mobile */
+            .tiktok-section {
+                padding: 0;
+                margin: 80px 0;
+                overflow: hidden;
+            }
+            
+            .tiktok-grid {
+                display: flex;
+                gap: 20px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 20px 20px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            .tiktok-grid::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .tiktok-wrapper {
+                flex: 0 0 85%;
+                max-width: 350px;
+                scroll-snap-align: center;
+            }
+            
+            /* Show scroll indicators on mobile */
+            .scroll-indicator {
+                display: flex;
+            }
+            
+            /* Adjust section titles for mobile */
+            .section-title {
+                margin: 40px 20px 25px;
+            }
+            
+            .tiktok-header {
+                padding: 0 20px;
+            }
+            
+            /* Add visual hint for scrollability */
+            .photo-grid::after,
+            .tiktok-grid::after {
+                content: '';
+                flex: 0 0 20px;
+            }
+        }
+        
+        /* Tablet responsive adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .tiktok-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 14px;
+            }
+            
+            .logo img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+                margin: 30px 15px 20px;
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 0 15px;
+            }
+            
+            .tiktok-grid {
+                gap: 10px;
+                padding: 0 15px;
+            }
+            
+            .cta-section {
+                padding: 40px 15px;
+            }
+            
+            .cta-section h2 {
+                font-size: 24px;
+            }
+        }
+        
+        /* Large Devices */
+        @media (min-width: 1440px) {
+            .photo-grid,
+            .tiktok-grid {
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Ensure all images and videos are responsive */
+        img,
+        video,
+        iframe {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Prevent horizontal scroll */
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Touch-friendly gallery items */
+        @media (max-width: 768px) {
+            .photo-item,
+            .tiktok-item {
+                min-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                 <a href="index.html">
+                <img src="Logo.png" alt="Pawesome Logo"></a>
+               <!-- <span>Pawesome Adventure Walks</span>-->
+            </div>
+            
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="#">SERVICES</a>
+                    <div class="dropdown-menu">
+                        <a href="dogwalking.html">Dog Walking</a>
+                        <a href="checkin&feeding.html">Check-in & Feeding</a>
+                        <a href="weddingchaperone.html">Wedding Chaperone</a>
+                        <a href="petsitting.html">Pet Sitting</a>
+                        <a href="vetvisits.html">Vet Visits</a>
+                    </div>
+                </li>
+                <li><a href="gallery.html" class="active">GALLERY</a></li>
+                <li><a href="contact.html" class="cta-button">GET IN TOUCH</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+        <h1>Our Adventures & Memories</h1>
+        <p>Capturing precious moments with your furry friends and showcasing our professional qualifications</p>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="photo-gallery">
+        <h2 class="section-title">
+            Happy Moments
+            <p class="section-subtitle">Every walk is an adventure, every moment is special</p>
+        </h2>
+        
+        <div class="photo-grid">
+            <div class="photo-item" onclick="openLightbox(0)">
+                <img src="dog happy.jpg" alt="Happy Dog">
+                <div class="photo-overlay">
+                    <div>Happy Adventures</div>
+                </div>
+            </div>
+            
+            <div class="photo-item" onclick="openLightbox(1)">
+                <img src="2 dogs walking.jpg" alt="Dog Walking">
+                <div class="photo-overlay">
+                    <div>Daily Walks</div>
+                </div>
+            </div>
+            
+            <div class="photo-item" onclick="openLightbox(2)">
+                <img src="dog w ball.jpg" alt="Dog with Ball">
+                <div class="photo-overlay">
+                    <div>Playtime Fun</div>
+                </div>
+            </div>
+            
+            <div class="photo-item" onclick="openLightbox(3)">
+                <img src="dog at home.jpg" alt="Dog at Home">
+                <div class="photo-overlay">
+                    <div>Home Comfort</div>
+                </div>
+            </div>
+            
+            <div class="photo-item" onclick="openLightbox(4)">
+                <img src="close up dog.jpg" alt="Close Up Dog">
+                <div class="photo-overlay">
+                    <div>Beautiful Portraits</div>
+                </div>
+            </div>
+            
+            <div class="photo-item" onclick="openLightbox(5)">
+                <img src="small dog close up.jpg" alt="Small Dog Close Up">
+                <div class="photo-overlay">
+                    <div>Small & Mighty</div>
+                </div>
+            </div>
+            
+            <div class="photo-item" onclick="openLightbox(6)">
+                <img src="cat laying down.jpg" alt="Cat Laying">
+                <div class="photo-overlay">
+                    <div>Feline Friends</div>
+                </div>
+            </div>
+            
+            <div class="photo-item" onclick="openLightbox(7)">
+                <img src="dog leash.jpg" alt="Dog on Leash">
+                <div class="photo-overlay">
+                    <div>Safe Adventures</div>
+                </div>
+            </div>
+            
+           
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">Swipe to see more</div>
+    </section>
+
+    <!-- Certification Section -->
+    <section class="certification-section">
+        <h2 class="section-title">
+            Professional Qualifications
+            <p class="section-subtitle">Certified and trained for your peace of mind</p>
+        </h2>
+        
+        <div class="cert-grid">
+            <div class="cert-item">
+                <div class="cert-image">
+                    <img src="CBT Diploma.jpg" alt="CBT Diploma">
+                </div>
+                <div class="cert-title">CBT Diploma</div>
+                <div class="cert-description">Certified in Canine Behavior & Training</div>
+            </div>
+            
+            <div class="cert-item">
+                <div class="cert-image">
+                    <img src="ITC emergency first aid.jpg" alt="First Aid License">
+                </div>
+                <div class="cert-title">Emergency First Aid</div>
+                <div class="cert-description">ITC Licensed for Pet Emergency Care</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TikTok Videos Section -->
+    <section class="tiktok-section">
+        <div class="tiktok-header">
+            <h2 class="section-title">
+                Follow Our Adventures
+                <p class="section-subtitle">Watch our daily adventures and happy moments on TikTok!</p>
+            </h2>
+            <a href="https://www.tiktok.com/@pawesome.adventur7" target="_blank" class="tiktok-handle">
+                @pawesome.adventur7 on TikTok
+            </a>
+        </div>
+        
+        <div class="tiktok-grid">
+            <!-- TikTok Embed 1 -->
+            <div class="tiktok-wrapper">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@pawesome.adventur7/video/7539102144859868438" data-video-id="7539102144859868438" style="max-width: 605px;min-width: 325px;">
+                    <section>
+                        <a target="_blank" title="@pawesome.adventur7" href="https://www.tiktok.com/@pawesome.adventur7?refer=embed">@pawesome.adventur7</a>
+                        <a title="wholetthedogsout" target="_blank" href="https://www.tiktok.com/tag/wholetthedogsout?refer=embed">#wholetthedogsout</a>
+                        <a title="pawesomeadventurewalks" target="_blank" href="https://www.tiktok.com/tag/pawesomeadventurewalks?refer=embed">#pawesomeadventurewalks</a>
+                        <a title="dogwalking" target="_blank" href="https://www.tiktok.com/tag/dogwalking?refer=embed">#dogwalking</a>
+                        <a title="dogwalkersoftiktok" target="_blank" href="https://www.tiktok.com/tag/dogwalkersoftiktok?refer=embed">#dogwalkersoftiktok</a>
+                        <a title="decals" target="_blank" href="https://www.tiktok.com/tag/decals?refer=embed">#decals</a>
+                        <a target="_blank" title="♬ original sound - Pawesome Adventure Walks" href="https://www.tiktok.com/music/original-sound-7539102143547689750?refer=embed">♬ original sound - Pawesome Adventure Walks</a>
+                    </section>
+                </blockquote>
+            </div>
+            
+            <!-- TikTok Embed 2 - second video here -->
+            <div class="tiktok-wrapper">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@pawesome.adventur7/video/7540750317558762774" data-video-id="7540750317558762774" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@pawesome.adventur7" href="https://www.tiktok.com/@pawesome.adventur7?refer=embed">@pawesome.adventur7</a> <a title="pawesomeadventurewalks" target="_blank" href="https://www.tiktok.com/tag/pawesomeadventurewalks?refer=embed">#pawesomeadventurewalks</a> <a title="staffordshirebullterrier" target="_blank" href="https://www.tiktok.com/tag/staffordshirebullterrier?refer=embed">#staffordshirebullterrier</a> <a title="staffy" target="_blank" href="https://www.tiktok.com/tag/staffy?refer=embed">#staffy</a> <a title="muddaddy" target="_blank" href="https://www.tiktok.com/tag/muddaddy?refer=embed">#muddaddy</a> <a title="bathtime" target="_blank" href="https://www.tiktok.com/tag/bathtime?refer=embed">#bathtime</a> <a target="_blank" title="♬ Splish Splash - Bobby Darin" href="https://www.tiktok.com/music/Splish-Splash-6727086300148533250?refer=embed">♬ Splish Splash - Bobby Darin</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+                 </div>
+            
+            <!-- TikTok Embed 3 -  third video here -->
+            <div class="tiktok-wrapper">
+               <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@pawesome.adventur7/video/7541778460654587158" data-video-id="7541778460654587158" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@pawesome.adventur7" href="https://www.tiktok.com/@pawesome.adventur7?refer=embed">@pawesome.adventur7</a> <a title="pawesomeadventurewalks" target="_blank" href="https://www.tiktok.com/tag/pawesomeadventurewalks?refer=embed">#pawesomeadventurewalks</a> <a title="staffy" target="_blank" href="https://www.tiktok.com/tag/staffy?refer=embed">#staffy</a> <a title="staffordshirebullterrier" target="_blank" href="https://www.tiktok.com/tag/staffordshirebullterrier?refer=embed">#staffordshirebullterrier</a> <a title="heron" target="_blank" href="https://www.tiktok.com/tag/heron?refer=embed">#heron</a> <a title="dogwalking" target="_blank" href="https://www.tiktok.com/tag/dogwalking?refer=embed">#dogwalking</a> <a target="_blank" title="♬ If You&#39;re Happy Wag Your Tail - Parry Gripp" href="https://www.tiktok.com/music/If-You're-Happy-Wag-Your-Tail-6756502454986098689?refer=embed">♬ If You&#39;re Happy Wag Your Tail - Parry Gripp</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script> </div>
+        </div>
+        
+        <div class="scroll-indicator">Swipe to see more videos</div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <span class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#10094;</span>
+            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <span class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#10095;</span>
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Join Our Pack?</h2>
+        <p>Book a service today and let your furry friend become part of our adventure family!</p>
+        <div class="cta-buttons">
+            <a href="contact.html" class="cta-btn-white">Book a Service</a>
+            <a href="index.html#services" class="cta-btn-white">View Services</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Pawesome Adventure Walks</h3>
+                <p style="color: #ccc; font-size: 13px; line-height: 1.6;">Professional pet care services with a personal touch.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="services.html#walking">Dog Walking</a></li>
+                    <li><a href="services.html#sitting">Pet Sitting</a></li>
+                    <li><a href="services.html#checkin">Check-in Visits</a></li>
+                    <li><a href="services.html#wedding">Wedding Chaperone</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="https://www.tiktok.com/@pawesome.adventur7" target="_blank">TikTok</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2025 Pawesome Adventure Walks. All rights reserved. | Fully Licensed & Insured</p>
+        </div>
+    </footer>
+
+    <!-- TikTok Embed Script -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+    
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Mobile Dropdown Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.nav-item-dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const link = dropdown.querySelector('a');
+                
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        dropdown.classList.toggle('active');
+                    }
+                });
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (navLinks && !nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    const navLinks = document.getElementById('navLinks');
+                    if (navLinks) {
+                        navLinks.classList.remove('active');
+                    }
+                    
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Lightbox functionality
+        let currentImageIndex = 0;
+        const images = [
+            { src: 'dog-happy.png', caption: 'Happy Adventures - Every day is a joy!' },
+            { src: 'dog-walking.png', caption: 'Daily Walks - Exercise and exploration' },
+            { src: 'dog-w-ball.png', caption: 'Playtime Fun - Games and activities' },
+            { src: 'dog-at-home.png', caption: 'Home Comfort - Cozy pet sitting' },
+            { src: 'close-up-dog.png', caption: 'Beautiful Portraits - Capturing personalities' },
+            { src: 'small-dog-close-up.png', caption: 'Small & Mighty - All sizes welcome' },
+            { src: 'cat-laying.png', caption: 'Feline Friends - Cat care too!' },
+            { src: 'dog-leash.png', caption: 'Safe Adventures - Always secure' },
+            { src: 'van.png', caption: 'Ready to Adventure - Professional service' }
+        ];
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            lightboxImage.src = images[index].src;
+            lightboxCaption.textContent = images[index].caption;
+            lightbox.classList.add('active');
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            }
+            
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            lightboxImage.src = images[currentImageIndex].src;
+            lightboxCaption.textContent = images[currentImageIndex].caption;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            } else if (event.key === 'ArrowLeft') {
+                changeImage(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeImage(1);
+            }
+        });
+
+        // Close lightbox when clicking outside
+        document.getElementById('lightbox').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeLightbox();
+            }
+        });
+        
+        // Add smooth scroll behavior for horizontal containers on mobile
+        if (window.innerWidth <= 768) {
+            const photoGrid = document.querySelector('.photo-grid');
+            const tiktokGrid = document.querySelector('.tiktok-grid');
+            
+            // Function to add touch scroll momentum
+            function addScrollMomentum(element) {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                
+                element.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    startX = e.pageX - element.offsetLeft;
+                    scrollLeft = element.scrollLeft;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    isDown = false;
+                });
+                
+                element.addEventListener('mouseup', () => {
+                    isDown = false;
+                });
+                
+                element.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - element.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    element.scrollLeft = scrollLeft - walk;
+                });
+            }
+            
+            if (photoGrid) addScrollMomentum(photoGrid);
+            if (tiktokGrid) addScrollMomentum(tiktokGrid);
+        }
+    </script>
+</body>
+</html>
