@@ -2763,22 +2763,18 @@
 
 /* Subtle footer button */
 .edit-site-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.3);
-    padding: 5px 14px;
-    border-radius: 20px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.2);
     font-size: 11px;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
-    margin-top: 10px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    padding: 0;
+    transition: color 0.3s ease;
 }
 .edit-site-btn:hover {
-    border-color: #FF6B35;
     color: #FF6B35;
-    background: rgba(255,107,53,0.08);
 }
 
 /* Editable text fields */
@@ -3159,8 +3155,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>© 2025 Pawesome Adventure Walks. All rights reserved. | Fully Licensed &amp; Insured</p>
-            <button class="edit-site-btn" onclick="startEditMode()" id="editBtn" style="display: none;">✏️ Edit Site</button>
+            <p>© 2025 Pawesome Adventure Walks. All rights reserved. | Fully Licensed &amp; Insured &nbsp;·&nbsp; <button class="edit-site-btn" onclick="startEditMode()" id="editBtn">Edit</button></p>
         </div>
     </footer>
 
