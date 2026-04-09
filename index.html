@@ -2465,10 +2465,254 @@
                         opacity: 0.8;
                     }
                 }
+            </style><style>
+/* ===== EDIT MODE STYLES (editor.js) ===== */
+.edit-site-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.2);
+    font-size: 11px;
+    cursor: pointer;
+    font-family: 'League Spartan', sans-serif;
+    letter-spacing: 0.5px;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+.edit-site-btn:hover { color: #FF6B35; }
+
+.edit-mode [contenteditable="true"] {
+    outline: 2px dashed rgba(255,107,53,0.55);
+    outline-offset: 4px;
+    border-radius: 4px;
+    cursor: text;
+    transition: outline 0.2s ease, background 0.2s ease;
+    min-height: 1em;
+    display: inline-block;
+}
+.edit-mode [contenteditable="true"]:hover  { outline-color: #FF6B35; background: rgba(255,107,53,0.07); }
+.edit-mode [contenteditable="true"]:focus  { outline: 2px solid #FF6B35; background: rgba(255,107,53,0.1); }
+
+.edit-mode .editable-img-wrap {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.edit-mode .editable-img-wrap::after {
+    content: '📷  Click to replace image';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.72);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-family: 'League Spartan', sans-serif;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+}
+.edit-mode .editable-img-wrap:hover::after { opacity: 1; }
+.edit-mode .editable-img-wrap img {
+    outline: 3px dashed rgba(255,107,53,0.6);
+    outline-offset: 3px;
+    transition: filter 0.2s ease;
+}
+.edit-mode .editable-img-wrap:hover img {
+    filter: brightness(0.7);
+    outline-color: #FF6B35;
+}
+
+#editToolbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-top: 3px solid #FF6B35;
+    padding: 14px 30px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 99999;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: toolbarSlideUp 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes toolbarSlideUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+}
+#editToolbar .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 14px;
+}
+#editToolbar .toolbar-left .edit-badge {
+    background: #FF6B35;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: badgePulse 2s ease infinite;
+}
+@keyframes badgePulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.5); }
+    50%      { box-shadow: 0 0 0 8px rgba(255,107,53,0); }
+}
+#editToolbar .toolbar-hint {
+    color: rgba(255,255,255,0.45);
+    font-size: 12px;
+    font-family: 'League Spartan', sans-serif;
+}
+#editToolbar .toolbar-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.toolbar-btn {
+    padding: 10px 24px;
+    border-radius: 25px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'League Spartan', sans-serif;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.toolbar-btn.save {
+    background: linear-gradient(135deg, #FF6B35, #f7931e);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+}
+.toolbar-btn.save:hover  { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,107,53,0.6); }
+.toolbar-btn.cancel {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+}
+.toolbar-btn.cancel:hover { background: rgba(255,255,255,0.15); color: white; }
+.toolbar-btn.deploy {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(46,204,113,0.35);
+}
+.toolbar-btn.deploy:hover     { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(46,204,113,0.55); }
+.toolbar-btn.deploy:disabled  { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+.toolbar-gear {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.4);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+.toolbar-gear:hover { border-color: #FF6B35; color: #FF6B35; background: rgba(255,107,53,0.08); transform: rotate(30deg); }
+
+.save-toast {
+    position: fixed;
+    top: 80px; left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: #2ecc71;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 30px rgba(46,204,113,0.4);
+    z-index: 100000;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+}
+.save-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.gh-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: ghOverlayIn 0.25s ease;
+}
+@keyframes ghOverlayIn { from { opacity:0; } to { opacity:1; } }
+.gh-modal {
+    background: #1a1a2e;
+    border: 1px solid rgba(255,107,53,0.25);
+    border-radius: 20px;
+    padding: 38px 40px;
+    width: 90%; max-width: 460px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    animation: ghModalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes ghModalIn {
+    from { transform: translateY(30px) scale(0.95); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+.gh-modal h3 { color:white; font-family:'League Spartan',sans-serif; font-size:20px; margin-bottom:8px; }
+.gh-modal .gh-desc { color:rgba(255,255,255,0.45); font-size:13px; font-family:'League Spartan',sans-serif; line-height:1.6; margin-bottom:24px; }
+.gh-form-row { margin-bottom:14px; }
+.gh-form-row label {
+    display:flex; align-items:center; justify-content:space-between;
+    color:rgba(255,255,255,0.6); font-size:11px; font-family:'League Spartan',sans-serif;
+    font-weight:600; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px;
+}
+.gh-help-link { color:#FF6B35; text-decoration:none; font-weight:400; text-transform:none; letter-spacing:0; font-size:12px; transition:opacity 0.2s; }
+.gh-help-link:hover { opacity:0.75; }
+.gh-form-row input {
+    width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+    border-radius:10px; padding:11px 15px; color:white; font-family:'League Spartan',sans-serif;
+    font-size:14px; outline:none; box-sizing:border-box; transition:border-color 0.2s ease;
+}
+.gh-form-row input:focus       { border-color:#FF6B35; }
+.gh-form-row input::placeholder { color:rgba(255,255,255,0.2); }
+.gh-modal-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:26px; }
+
+#deployStatus {
+    font-size:13px; font-family:'League Spartan',sans-serif;
+    padding:7px 16px; border-radius:20px; display:none;
+    align-items:center; gap:8px; max-width:420px;
+}
+#deployStatus.loading { display:flex; background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.65); }
+#deployStatus.success { display:flex; background:rgba(46,204,113,0.12); color:#2ecc71; border:1px solid rgba(46,204,113,0.25); }
+#deployStatus.error   { display:flex; background:rgba(231,76,60,0.12);  color:#e74c3c; border:1px solid rgba(231,76,60,0.25); }
+.deploy-spinner {
+    width:13px; height:13px;
+    border:2px solid rgba(255,255,255,0.25); border-top-color:white;
+    border-radius:50%; animation:spinIt 0.75s linear infinite; flex-shrink:0;
+}
+@keyframes spinIt { to { transform:rotate(360deg); } }
+</style><style>
+                @keyframes markerPulse {
+                    0%, 100% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                    50% {
+                        transform: scale(1.2);
+                        opacity: 0.8;
+                    }
+                }
             </style></head>
 <body class="">
     <!-- Scroll Progress Bar -->
-    <div class="scroll-progress" id="scrollProgress" style="width: 100%;"></div>
+    <div class="scroll-progress" id="scrollProgress" style="width: 96.5497%;"></div>
 
     <!-- Original Header Kept -->
     <header>
@@ -2732,6 +2976,78 @@
                         border: 3px solid white; 
                         box-shadow: 0 3px 8px rgba(0,0,0,0.3);
                         animation: markerPulse 2s ease infinite;
+                    "></div></div></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(258663px, 164219px, 0px) scale(1024);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © OpenStreetMap contributors</div></div></div><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://b.tile.openstreetmap.org/11/1010/641.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(347px, 127px, 0px); opacity: 1;"><img alt="" src="https://a.tile.openstreetmap.org/11/1010/640.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(347px, -129px, 0px); opacity: 1;"><img alt="" src="https://a.tile.openstreetmap.org/11/1009/641.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(91px, 127px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/11/1011/641.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(603px, 127px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/11/1010/642.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(347px, 383px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/11/1009/640.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(91px, -129px, 0px); opacity: 1;"><img alt="" src="https://b.tile.openstreetmap.org/11/1011/640.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(603px, -129px, 0px); opacity: 1;"><img alt="" src="https://b.tile.openstreetmap.org/11/1009/642.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(91px, 383px, 0px); opacity: 1;"><img alt="" src="https://a.tile.openstreetmap.org/11/1011/642.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(603px, 383px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/11/1008/641.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-165px, 127px, 0px); opacity: 1;"><img alt="" src="https://a.tile.openstreetmap.org/11/1012/641.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(859px, 127px, 0px); opacity: 1;"><img alt="" src="https://b.tile.openstreetmap.org/11/1008/640.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-165px, -129px, 0px); opacity: 1;"><img alt="" src="https://c.tile.openstreetmap.org/11/1012/640.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(859px, -129px, 0px); opacity: 1;"><img alt="" src="https://a.tile.openstreetmap.org/11/1008/642.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-165px, 383px, 0px); opacity: 1;"><img alt="" src="https://b.tile.openstreetmap.org/11/1012/642.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(859px, 383px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(388px, 327px, 0px); z-index: 327;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(473px, 154px, 0px); z-index: 154;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(352px, 227px, 0px); z-index: 227;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(413px, 255px, 0px); z-index: 255;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(344px, 52px, 0px); z-index: 52;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(461px, 301px, 0px); z-index: 301;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(484px, 540px, 0px); z-index: 540;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(353px, 408px, 0px); z-index: 408;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
+                    "></div></div><div class="leaflet-marker-icon custom-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" role="button" style="margin-left: -15px; margin-top: -15px; width: 30px; height: 30px; transform: translate3d(600px, 468px, 0px); z-index: 468;"><div style="
+                        background-color: #FF6B35; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        border: 3px solid white; 
+                        box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+                        animation: markerPulse 2s ease infinite;
                     "></div></div></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(258663px, 164219px, 0px) scale(1024);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © OpenStreetMap contributors</div></div></div></div>
     </section>
 
@@ -2758,7 +3074,7 @@
 <section class="contact-section section-card card-visible">
     <h2 data-sa="fade-up" class="sa-visible">Get In Touch</h2>
     <p class="contact-subtitle sa-visible" data-sa="fade-up" data-delay="100">
-        Ready to give your pet the adventure they deserve? Contact us for more information or to book your first visit</p>
+        Ready to give your pet the adventure they deserve? Contact us for more information or to book your first visit!</p>
 
     <div class="contact-buttons">
         <!-- Call + WhatsApp -->
@@ -3227,7 +3543,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>© 2025 Pawesome Adventure Walks. All rights reserved. | Fully Licensed &amp; Insured &nbsp;·&nbsp; <button class="edit-site-btn" onclick="startEditMode()" id="editBtn" style="display: none;">Edit</button></p>
+            <p>© 2025 Pawesome Adventure Walks. All rights reserved. | Fully Licensed &amp; Insured &nbsp;·&nbsp; <button class="edit-site-btn" onclick="startEditMode()" id="editBtn" style="">Edit</button></p>
         </div>
     </footer>
 
@@ -3851,5 +4167,10 @@
     </script>
     <script>window.PAGE_FILENAME = 'index.html';</script>
     <script src="editor.js"></script>
+
+
+
+
+
 
 </body></html>
