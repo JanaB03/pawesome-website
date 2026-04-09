@@ -9,7 +9,7 @@
 
     /* ─── CONFIG ─────────────────────────────────────────────── */
     var EDIT_PASSWORD = 'pawesome2025';
-    var LIVE_URL      = 'https://janab03.github.io/pawesome-website';
+    var LIVE_URL      = 'https://pawesomekelso.vercel.app';
 
     /* ─── INJECT CSS ─────────────────────────────────────────── */
     var css = `
@@ -273,7 +273,7 @@
 <div id="githubModal" class="gh-modal-overlay" style="display:none;" onclick="if(event.target===this)pawesomeEditor.closeGhModal()">
     <div class="gh-modal">
         <h3>🔗 GitHub Deploy Settings</h3>
-        <p class="gh-desc">Enter your GitHub details once — they're stored in your browser. Clicking Deploy will push changes and trigger GitHub Pages to redeploy (~1–2 min).</p>
+        <p class="gh-desc">Enter your GitHub details once — they're stored in your browser. Clicking Deploy will push changes and trigger Vercel to redeploy (~1–2 min).</p>
         <div class="gh-form-row">
             <label>GitHub Token <a class="gh-help-link" href="https://github.com/settings/tokens/new?scopes=repo&description=Pawesome+Deploy" target="_blank">Create token →</a></label>
             <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
@@ -558,7 +558,7 @@
                 });
 
                 self.setDeployStatus('success',
-                    '\u2705 Pushed! GitHub Pages is deploying (~1\u20132 min)&nbsp;&nbsp;' +
+                    '\u2705 Pushed! Vercel is deploying (~1\u20132 min)&nbsp;&nbsp;' +
                     '<a href="' + LIVE_URL + '" target="_blank" ' +
                     'style="color:#2ecc71;font-weight:700;text-decoration:underline;">View live site \u2192</a>'
                 );
