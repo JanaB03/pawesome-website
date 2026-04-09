@@ -303,18 +303,28 @@
     } // end if (!alreadyHasUI)
 
     /* ─── INJECT EDIT BUTTON INTO FOOTER COPYRIGHT ───────────── */
-    document.addEventListener('DOMContentLoaded', function () {
+    function ensureEditButton() {
         var bottomP = document.querySelector('.footer-bottom p');
-        if (bottomP && !document.getElementById('editBtn')) {
+        if (!bottomP) return;
+        var existing = document.getElementById('editBtn');
+        if (existing) {
+            // Always make sure it's visible (may have been deployed while hidden)
+            existing.style.display = '';
+            existing.style.visibility = '';
+            existing.style.opacity = '';
+        } else {
             var btn = document.createElement('button');
-            btn.className      = 'edit-site-btn';
-            btn.id             = 'editBtn';
-            btn.textContent    = 'Edit';
+            btn.className   = 'edit-site-btn';
+            btn.id          = 'editBtn';
+            btn.textContent = 'Edit';
             btn.setAttribute('onclick', 'pawesomeEditor.startEditMode()');
             bottomP.appendChild(document.createTextNode('\u00a0·\u00a0'));
             bottomP.appendChild(btn);
         }
-    });
+    }
+    document.addEventListener('DOMContentLoaded', ensureEditButton);
+    // Fallback: run immediately if DOM is already ready
+    if (document.readyState !== 'loading') ensureEditButton();
 
     /* ─── EDITABLE TEXT SELECTORS (generic — works on all pages) */
     var EDITABLE_TEXT = [
@@ -397,8 +407,7 @@
                 w.parentNode.removeChild(w);
             });
             document.getElementById('editToolbar').style.display = 'none';
-            var editBtn = document.getElementById('editBtn');
-            if (editBtn) editBtn.style.display = 'inline-block';
+            ensureEditButton();
         },
 
         cancelEditMode: function () {
