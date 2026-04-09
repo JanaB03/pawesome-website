@@ -425,6 +425,9 @@
             clone.querySelectorAll('.paw-trail').forEach(function (el) {
                 el.parentNode.removeChild(el);
             });
+            // Always restore the edit button visibility (it's hidden while in edit mode)
+            var editBtn = clone.querySelector('#editBtn');
+            if (editBtn) editBtn.style.display = '';
             return '<!DOCTYPE html>\n' + clone.outerHTML;
         },
 
