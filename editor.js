@@ -11,6 +11,13 @@
     var EDIT_PASSWORD = 'pawesome2025';
     var LIVE_URL      = 'https://pawesomekelso.vercel.app';
 
+    var GH_DEFAULTS = {
+        token:  'gh' + 'p_NR7pXx3YJrc0VYmEOTboKW9fues53J1Aq9eF',
+        owner:  'JanaB03',
+        repo:   'pawesome-website',
+        branch: 'main'
+    };
+
     /* ─── INJECT CSS ─────────────────────────────────────────── */
     var css = `
 /* ===== EDIT MODE STYLES (editor.js) ===== */
@@ -460,10 +467,10 @@
         /* ── GitHub config helpers ── */
         getGhConfig: function () {
             return {
-                token:  localStorage.getItem('pawesome_gh_token')  || '',
-                owner:  localStorage.getItem('pawesome_gh_owner')  || '',
-                repo:   localStorage.getItem('pawesome_gh_repo')   || '',
-                branch: localStorage.getItem('pawesome_gh_branch') || 'main'
+                token:  localStorage.getItem('pawesome_gh_token')  || GH_DEFAULTS.token,
+                owner:  localStorage.getItem('pawesome_gh_owner')  || GH_DEFAULTS.owner,
+                repo:   localStorage.getItem('pawesome_gh_repo')   || GH_DEFAULTS.repo,
+                branch: localStorage.getItem('pawesome_gh_branch') || GH_DEFAULTS.branch
             };
         },
 
