@@ -641,10 +641,60 @@
             .pet-illustrations {
                 max-width: 500px;
             }
-            
+
             .values-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        /* ===== ADDITIONAL MOBILE IMPROVEMENTS ===== */
+        @media (max-width: 768px) {
+            /* About hero - ensure illustration fits */
+            .about-hero { padding: 80px 16px 40px; }
+            .pet-illustrations { flex-direction: column; align-items: center; gap: 16px; }
+            .pet-illustration { width: 90px; height: 90px; }
+            .about-hero-text { max-width: 100%; }
+
+            /* About content padding */
+            .about-content { margin: 30px auto; padding: 0 16px; }
+            .about-section { margin-bottom: 30px; }
+
+            /* Founder box */
+            .founder-box { padding: 20px; margin: 20px 0; text-align: left; }
+
+            /* Values section */
+            .values-section { padding: 35px 16px; margin: 30px 0; }
+
+            /* Credentials */
+            .credentials-section { margin: 30px auto; padding: 0 16px; }
+
+            /* Mission section */
+            .mission-section { padding: 35px 16px; margin: 30px 16px; }
+            .mission-section h2 { font-size: 26px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+            /* Contact section */
+            .contact-section { padding: 40px 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .about-hero { padding: 80px 12px 30px; }
+            .pet-illustration { width: 70px; height: 70px; }
+
+            .values-section { padding: 25px 12px; }
+            .value-card { padding: 18px; }
+            .value-icon { font-size: 30px; }
+
+            .credentials-section { padding: 0 12px; }
+            .credential-card { padding: 18px; }
+
+            .mission-section { padding: 25px 12px; margin: 20px 12px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .stat-item h3 { font-size: 22px; }
+
+            .contact-section { padding: 30px 12px; }
+            .contact-btn { max-width: 100%; padding: 20px; }
+            .contact-btn h3 { font-size: 16px; }
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -663,6 +663,44 @@
             gap: 10px;
         }
         .social-link svg { flex-shrink: 0; }
+
+        /* ===== ADDITIONAL MOBILE IMPROVEMENTS ===== */
+        @media (max-width: 768px) {
+            /* Hero */
+            .hero { padding: 80px 16px 40px; }
+
+            /* Contact form */
+            .contact-form-section { padding: 20px 14px; margin: 16px 8px; border-radius: 16px; }
+            .contact-form-section h2 { font-size: 22px; margin-bottom: 20px; }
+            .form-submit { width: 100%; padding: 14px 20px; border-radius: 12px; font-size: 15px; }
+
+            /* Contact info */
+            .contact-info-section { padding: 35px 16px; }
+            .contact-info-section h2 { font-size: 22px; }
+            .contact-methods { flex-direction: column; align-items: flex-start; gap: 16px; padding: 0 8px; }
+            .contact-method { width: 100%; }
+
+            /* Areas */
+            .areas-section { padding: 35px 16px; }
+            .areas-section h2 { font-size: 22px; }
+            .areas-grid { gap: 10px; }
+
+            /* Contact section at bottom */
+            .contact-section { padding: 35px 16px; }
+            .contact-buttons { flex-direction: column; align-items: center; gap: 12px; }
+            .contact-btn { width: 100%; max-width: 380px; flex: none; padding: 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 75px 12px 30px; }
+            .contact-form-section { margin: 12px 6px; padding: 16px 12px; }
+            .contact-form-section h2 { font-size: 20px; }
+            .pet-name-section h3 { font-size: 14px; }
+            .contact-info-section { padding: 25px 12px; }
+            .areas-section { padding: 25px 12px; }
+            .contact-section { padding: 25px 12px; }
+            .contact-btn { max-width: 100%; }
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

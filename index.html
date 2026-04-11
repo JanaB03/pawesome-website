@@ -1729,12 +1729,12 @@
             }
             
             .hero-illustration {
-                width: 420px;
-                height: 420px;
+                width: 280px;
+                height: 280px;
             }
-            
+
             .hero-badges {
-                gap: 20px;
+                gap: 12px;
             }
             
             .badge {
@@ -2208,6 +2208,80 @@
             .service-badge-img { width: 65px; height: 65px; }
             .stats-section { padding: 45px 20px; }
             .stats-grid { gap: 12px; }
+        }
+
+        /* ===== ADDITIONAL MOBILE RESPONSIVE IMPROVEMENTS ===== */
+
+        /* Why Us section */
+        @media (max-width: 768px) {
+            .why-us { padding: 50px 20px; }
+            .why-us h2 { font-size: 32px; margin-bottom: 30px; }
+            .why-us-content { flex-direction: column; gap: 30px; align-items: center; }
+            .why-us-image { width: 100%; max-width: 100%; height: 220px; }
+            .why-us-text p { font-size: 15px; }
+            .dog-illustration { width: 80px; height: 80px; }
+
+            /* Service Area */
+            .service-area { padding: 50px 20px; }
+            .service-area h2 { font-size: 32px; }
+            .service-area-subtitle { font-size: 14px; }
+            .service-locations { gap: 8px; }
+            #map { height: 300px; }
+
+            /* Happy Tails */
+            .happy-tails { padding: 50px 20px; }
+            .happy-tails h2 { font-size: 32px; margin-bottom: 30px; }
+            .happy-tails h2::before,
+            .happy-tails h2::after { display: none; }
+
+            /* Get In Touch */
+            .get-in-touch { padding: 50px 20px; }
+            .get-in-touch h2 { font-size: 32px; }
+            .get-in-touch-subtitle { font-size: 14px; margin-bottom: 30px; }
+            .contact-boxes { flex-direction: column; align-items: center; gap: 20px; }
+            .contact-box { width: 100%; max-width: 380px; min-width: unset; padding: 30px 24px; }
+            .contact-box h3 { font-size: 22px; }
+
+            /* Hero illustration sizing */
+            .hero-illustration { width: 280px; height: 280px; }
+
+            /* Section divider */
+            .section-divider { margin: 30px 0; }
+        }
+
+        @media (max-width: 480px) {
+            /* Why Us */
+            .why-us { padding: 35px 15px; }
+            .why-us h2 { font-size: 26px; }
+            .why-us-image { height: 180px; }
+
+            /* Service Area */
+            .service-area { padding: 35px 15px; }
+            .service-area h2 { font-size: 26px; }
+            #map { height: 240px; }
+
+            /* Happy Tails */
+            .happy-tails { padding: 35px 15px; }
+            .happy-tails h2 { font-size: 26px; margin-bottom: 20px; }
+            .gallery { grid-template-columns: 1fr; gap: 12px; }
+
+            /* Get In Touch */
+            .get-in-touch { padding: 35px 15px; }
+            .get-in-touch h2 { font-size: 26px; }
+            .contact-box { padding: 24px 18px; }
+            .contact-box h3 { font-size: 20px; margin-bottom: 16px; }
+            .contact-box p { font-size: 14px; }
+
+            /* Stats section */
+            .stats-section { padding: 30px 15px; }
+            .stat-item { min-width: 110px; max-width: 130px; padding: 16px 12px; }
+
+            /* Hero illustration */
+            .hero-illustration { width: 220px; height: 220px; }
+
+            /* Badge stacking */
+            .hero-badges { gap: 10px; }
+            .badge { font-size: 13px; padding: 8px 14px; gap: 8px; }
         }
     </style>
 <style>

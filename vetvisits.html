@@ -143,12 +143,14 @@
 
         @media (max-width: 768px) {
             .hamburger { display: flex; }
+            header { padding: 0 12px; }
+            nav { padding: 8px 16px; position: relative; }
             .nav-links {
                 display: none;
                 position: absolute;
                 top: calc(100% + 8px);
-                left: 20px;
-                right: 20px;
+                left: 0;
+                right: 0;
                 background: rgba(255,255,255,0.98);
                 border-radius: 16px;
                 border: 1px solid rgba(0,0,0,0.07);
@@ -159,8 +161,10 @@
                 z-index: 999;
             }
             .nav-links.active { display: flex; }
+            .nav-links li { padding: 0; }
             .nav-links a { padding: 10px 16px; width: 100%; }
-            nav { position: relative; }
+            .dropdown-menu { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; background: transparent; padding: 0; margin: 4px 0 0 16px; pointer-events: auto; display: none; }
+            .nav-item-dropdown.active .dropdown-menu { display: block; }
         }
 
         .cta-button {
@@ -650,20 +654,50 @@
         /* Large Devices */
         @media (min-width: 1440px) {
             .service-detail {
-            background: #ffffff;
-            padding: 60px 40px;
+                background: #ffffff;
+                padding: 60px 40px;
+            }
         }
-        }
-        
+
         /* Ensure all images are responsive */
         img {
             max-width: 100%;
             height: auto;
         }
-        
+
         /* Prevent horizontal scroll */
         body {
             overflow-x: hidden;
+        }
+
+        /* ===== ADDITIONAL MOBILE IMPROVEMENTS ===== */
+        @media (max-width: 768px) {
+            .hero { padding: 80px 16px 40px; }
+            .service-detail { padding: 30px 16px; }
+            .service-highlights { padding: 20px 16px; margin-top: 20px; }
+            .pricing-disclaimer { margin-top: 20px; padding: 14px; }
+            .contact-section { padding: 40px 16px; }
+            .contact-btn { padding: 20px; }
+            footer { padding: 25px 16px 15px; }
+            .footer-content { gap: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 75px 12px 30px; }
+            .hero h1 { font-size: 26px; line-height: 1.2; }
+            .hero p { font-size: 14px; }
+            .service-detail { padding: 20px 12px; }
+            .service-main, .service-price-box, .service-highlights { padding: 16px; }
+            .service-main h2 { font-size: 20px; }
+            .service-price { font-size: 22px; }
+            .service-features li { font-size: 14px; padding: 10px 0; }
+            .service-highlights h3 { font-size: 20px; }
+            .highlight-item h4 { font-size: 15px; }
+            .highlight-item p { font-size: 13px; }
+            .book-btn { padding: 12px 24px; font-size: 15px; }
+            .contact-section { padding: 30px 12px; }
+            .contact-btn { padding: 16px; max-width: 100%; }
+            footer { padding: 20px 12px 12px; }
         }
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
