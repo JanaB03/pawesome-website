@@ -348,7 +348,16 @@
         '.service-highlights li',
         '.intro-text p',
         '.about-text p',
-        '.gallery-intro p'
+        '.gallery-intro p',
+        /* ── About page ── */
+        '.about-section p',
+        '.about-hero-text p',
+        '.founder-box p',
+        '.title',
+        '.values-subtitle',
+        '.value-card p',
+        '.credentials-subtitle',
+        '.credential-card p'
     ];
 
     /* ─── MAIN API OBJECT ────────────────────────────────────── */
