@@ -309,6 +309,37 @@
     while (wrapper.firstChild) document.body.appendChild(wrapper.firstChild);
     } // end if (!alreadyHasUI)
 
+    /* ─── SYNC DOMAIN IN META TAGS ──────────────────────────────
+       If LIVE_URL ever changes, all canonical / OG / schema URLs
+       on every page update automatically on next load.           */
+    (function syncDomain() {
+        var base = LIVE_URL.replace(/\/$/, '');
+        var page = location.pathname.split('/').pop() || 'index.html';
+
+        // Canonical
+        var canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) canonical.href = base + '/' + page;
+
+        // OG + Twitter URL tags
+        var ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) ogUrl.content = base + '/' + page;
+
+        // OG + Twitter image tags (keep path, just swap domain)
+        ['meta[property="og:image"]','meta[name="twitter:image"]'].forEach(function(sel) {
+            var el = document.querySelector(sel);
+            if (el) el.content = el.content.replace(/^https?:\/\/[^/]+/, base);
+        });
+
+        // Schema.org JSON-LD — swap domain in any url field
+        document.querySelectorAll('script[type="application/ld+json"]').forEach(function(s) {
+            try {
+                var data = JSON.parse(s.textContent);
+                if (data.url) data.url = base;
+                s.textContent = JSON.stringify(data);
+            } catch(e) {}
+        });
+    })();
+
     /* ─── INJECT EDIT BUTTON INTO FOOTER COPYRIGHT ───────────── */
     function ensureEditButton() {
         var bottomP = document.querySelector('.footer-bottom p');
