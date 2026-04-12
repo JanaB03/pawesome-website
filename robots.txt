@@ -4,20 +4,13 @@ Allow: /
 # Sitemap location - UPDATE THIS WITH YOUR ACTUAL DOMAIN
 Sitemap: https://pawesomekelso.vercel.app/sitemap.xml
 
-# Block access to admin areas if you have any
-Disallow: /admin/
-Disallow: /private/
-
 # Allow important pet service pages
 Allow: /services.html
 Allow: /dogwalking.html
-Allow: /checkin&feeding.html
+Allow: /checkin%26feeding.html
 Allow: /weddingchaperone.html
 Allow: /petsitting.html
 Allow: /vetvisits.html
 Allow: /about.html
 Allow: /contact.html
 Allow: /gallery.html
-
-# Crawl-delay (optional, helps prevent server overload)
-Crawl-delay: 1
