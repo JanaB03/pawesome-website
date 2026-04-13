@@ -366,20 +366,34 @@
 
     /* ─── EDITABLE TEXT SELECTORS (generic — works on all pages) */
     var EDITABLE_TEXT = [
-        'h1','h2','h3',
+        /* ── Headings (all pages) ── */
+        'h1','h2','h3','h4',
+
+        /* ── Index ── */
         '.subtitle',
         '.hero-badges .badge span',
         '.service-area-subtitle',
         '.service-locations span',
-        '.contact-subtitle',
-        '.footer-section p',
-        '.footer-bottom p',
+        '.stats-title',
         '.stat-label',
+        '.gallery-caption',
+        '.intro-text p',
+        '.gallery-intro p',
+
+        /* ── Service pages (dogwalking, petsitting, vetvisits, weddingchaperone, checkin&feeding) ── */
+        '.service-main p',
+        '.service-features li',
+        '.service-price',
+        '.service-price-box small',
         '.service-detail p',
         '.service-highlights li',
-        '.intro-text p',
-        '.about-text p',
-        '.gallery-intro p',
+        '.highlight-item p',
+        '.pricing-disclaimer p',
+
+        /* ── Contact page ── */
+        '.contact-subtitle',
+        '.area-tag',
+
         /* ── About page ── */
         '.about-section p',
         '.about-hero-text p',
@@ -388,7 +402,13 @@
         '.values-subtitle',
         '.value-card p',
         '.credentials-subtitle',
-        '.credential-card p'
+        '.credential-card p',
+        '.about-text p',
+
+        /* ── Footer (all pages) ── */
+        '.footer-section p',
+        '.footer-section li a',
+        '.footer-bottom p'
     ];
 
     /* ─── MAIN API OBJECT ────────────────────────────────────── */
